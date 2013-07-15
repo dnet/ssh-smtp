@@ -31,7 +31,7 @@ void Server::startRead()
 {
 	char buffer[BUFSIZE];
 
-	if (client->readLine(buffer, BUFSIZE)) {
+	while (client->readLine(buffer, BUFSIZE)) {
 		QString line(buffer);
 
 		if (line.startsWith("HELO ")) {
@@ -41,6 +41,7 @@ void Server::startRead()
 		else if (line.startsWith("MAIL FROM:")) {
 			cout << buffer + 10 << endl; // TODO
 			client->close();
+			break;
 		}
 	}
 }
