@@ -2,15 +2,20 @@
 #include <iostream>
 
 #define BUFSIZE 1024
+#define DEFAULT_ADDR "127.0.0.1"
+#define DEFAULT_PORT 2525
 
 using namespace std;
 
 Server::Server(QObject* parent): QObject(parent)
 {
+	QSettings settings;
 	connect(&server, SIGNAL(newConnection()),
 			this, SLOT(acceptConnection()));
 
-	server.listen(QHostAddress::Any, 2525);
+	QHostAddress addr(settings.value("daemon/addr", DEFAULT_ADDR).toString());
+	quint16 port = settings.value("daemon/port", DEFAULT_PORT).toInt();
+	server.listen(addr, port);
 }
 
 Server::~Server()
