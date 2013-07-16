@@ -31,7 +31,7 @@ void Server::acceptConnection()
 	connect(client, SIGNAL(readyRead()),
 			this, SLOT(startRead()));
 
-	client->write("220 ssh-smtp.vsza.hu ESMTP SSH-SMTP\r\n");
+	client->write("220 ssh-smtp.vsza.hu SSH-SMTP\r\n");
 }
 
 void Server::startRead()
