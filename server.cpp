@@ -1,9 +1,11 @@
 #include "server.h"
 #include <iostream>
+#include <QRegExp>
 
 #define BUFSIZE 1024
 #define DEFAULT_ADDR "127.0.0.1"
 #define DEFAULT_PORT 2525
+#define EMAIL_RE "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}"
 
 using namespace std;
 
@@ -44,7 +46,11 @@ void Server::startRead()
 			client->write(buffer + 5);
 		}
 		else if (line.startsWith("MAIL FROM:")) {
-			cout << buffer + 10 << endl; // TODO
+			QRegExp mail(EMAIL_RE, Qt::CaseInsensitive);
+			if (mail.indexIn(line, 10)) {
+				const QString &addr = mail.cap(0);
+				cout << addr.toStdString() << endl; // TODO
+			}
 			client->close();
 			break;
 		}
