@@ -2,7 +2,7 @@
 #include <iostream>
 #include <QRegExp>
 
-#define BUFSIZE 1024
+#define BUFSIZE 4096
 #define DEFAULT_ADDR "127.0.0.1"
 #define DEFAULT_PORT 2525
 #define EMAIL_RE "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}"
