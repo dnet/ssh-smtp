@@ -1,4 +1,5 @@
 QT       += core network
+QT       -= gui
 
 TARGET = ssh-smtp
 TEMPLATE = app
