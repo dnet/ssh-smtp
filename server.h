@@ -4,8 +4,7 @@
 #include <QTcpSocket>
 #include <QMutex>
 
-class Server: public QObject
-{
+class Server: public QObject {
 	Q_OBJECT
 	public:
 		Server(QObject * parent = 0);

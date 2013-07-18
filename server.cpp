@@ -9,8 +9,7 @@
 #define DEFAULT_CMD "nc -q 0 localhost 25"
 #define EMAIL_RE "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}"
 
-Server::Server(QObject* parent): QObject(parent)
-{
+Server::Server(QObject* parent): QObject(parent) {
 	QSettings settings;
 	connect(&server, SIGNAL(newConnection()),
 			this, SLOT(acceptConnection()));
@@ -20,14 +19,12 @@ Server::Server(QObject* parent): QObject(parent)
 	server.listen(addr, port);
 }
 
-Server::~Server()
-{
+Server::~Server() {
 	server.close();
 	closeSSH();
 }
 
-void Server::acceptConnection()
-{
+void Server::acceptConnection() {
 	client = server.nextPendingConnection();
 	connect(client, SIGNAL(readyRead()),
 			this, SLOT(startRead()));
@@ -38,8 +35,7 @@ void Server::acceptConnection()
 	ssh = NULL;
 }
 
-void Server::startRead()
-{
+void Server::startRead() {
 	char buffer[BUFSIZE];
 
 	if (ssh == NULL) {
