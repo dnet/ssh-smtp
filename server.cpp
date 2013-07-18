@@ -1,5 +1,5 @@
 #include "server.h"
-#include <iostream>
+#include <stdio.h>
 #include <QRegExp>
 
 #define BUFSIZE 4096
@@ -8,8 +8,6 @@
 #define DEFAULT_SSH "ssh"
 #define DEFAULT_CMD "nc -q 0 localhost 25"
 #define EMAIL_RE "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}"
-
-using namespace std;
 
 Server::Server(QObject* parent): QObject(parent)
 {
@@ -141,7 +139,7 @@ void Server::sshStdErrReady() {
 
 	ssh->setReadChannel(QProcess::StandardError);
 	while (ssh->readLine(buffer, BUFSIZE)) {
-		cerr << "[ssh stderr] " << buffer;
+		fprintf(stderr, "[ssh stderr] %s", buffer);
 	}
 }
 
