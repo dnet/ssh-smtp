@@ -1,3 +1,6 @@
+#ifndef SERVER_H_
+#define SERVER_H_
+
 #include <QtNetwork>
 #include <QObject>
 #include <QTcpServer>
@@ -27,3 +30,5 @@ class Server: public QObject {
 		bool buildTunnel(const QString &addr);
 		void closeSSH();
 };
+
+#endif  // SERVER_H_
