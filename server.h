@@ -37,7 +37,7 @@
 class Server: public QObject {
 	Q_OBJECT
 	public:
-		Server(QObject * parent = 0);
+		explicit Server(QObject * parent = 0);
 		~Server();
 		public slots:
 			void acceptConnection();
