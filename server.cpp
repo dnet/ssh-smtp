@@ -69,11 +69,11 @@ void Server::startRead() {
 		while (client->readLine(buffer, BUFSIZE)) {
 			connectBuffer.append(buffer);
 
-			if (strncmp(buffer, "HELO ", 5) == 0 ||
-					strncmp(buffer, "EHLO ", 5) == 0) {
+			if (strncasecmp(buffer, "HELO ", 5) == 0 ||
+					strncasecmp(buffer, "EHLO ", 5) == 0) {
 				client->write("250 Hello ");
 				client->write(buffer + 5);
-			} else if (strncmp(buffer, "MAIL FROM:", 10) == 0) {
+			} else if (strncasecmp(buffer, "MAIL FROM:", 10) == 0) {
 				QRegExp mail(EMAIL_RE, Qt::CaseInsensitive);
 				QString remain(buffer + 10);
 				if (mail.indexIn(remain)) {
