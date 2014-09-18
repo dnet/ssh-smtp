@@ -33,7 +33,7 @@
 #define DEFAULT_ADDR "127.0.0.1"
 #define DEFAULT_PORT 2525
 #define DEFAULT_SSH "ssh"
-#define DEFAULT_CMD "nc -q 0 localhost 25"
+#define LOCAL_SMTP "localhost:25"
 #define EMAIL_RE "[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,4}"
 
 Server::Server(QObject* parent): QObject(parent) {
@@ -118,9 +118,14 @@ bool Server::buildTunnel(const QString &addr) {
 		return false;
 	} else {
 		const QString program(settings.value("ssh/exec", DEFAULT_SSH).toString());
-		const QString remote(settings.value(addr + "/cmd", DEFAULT_CMD).toString());
 		QStringList arguments;
-		arguments << target.toString() << remote;
+
+		if (settings.contains(addr + "/cmd")) {
+			const QString remote(settings.value(addr + "/cmd", QVariant()).toString());
+			arguments << target.toString() << remote;
+		} else {
+			arguments << target.toString() << "-W" << LOCAL_SMTP;
+		}
 
 		closeSSH();
 		ssh = new QProcess();
